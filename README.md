@@ -106,3 +106,30 @@ This task successfully built a structured data pipeline that:
 Extracts real user feedback from mobile banking apps
 Cleans and standardizes textual data for NLP tasks
 Produces a unified dataset ready for sentiment and thematic analysis
+
+## Task 3: PostgreSQL Integration
+
+### Database Setup
+- Database name: bank_reviews
+- Tables: banks, reviews
+
+### Data Insertion
+Data was inserted using SQLAlchemy in `scripts/load_to_postgres.py`
+
+### Verification Queries
+
+#### Total reviews
+```sql
+SELECT COUNT(*) FROM reviews;
+
+Reviews per bank
+SELECT b.bank_name, COUNT(*) 
+FROM reviews r
+JOIN banks b ON r.bank_id = b.bank_id
+GROUP BY b.bank_name;
+
+Average rating
+SELECT b.bank_name, AVG(r.rating)
+FROM reviews r
+JOIN banks b ON r.bank_id = b.bank_id
+GROUP BY b.bank_name;
